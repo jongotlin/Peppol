@@ -190,23 +190,23 @@ class PeppolGenerator
     {
         $legalMonetaryTotal = $peppolDocument->createElement('cac:LegalMonetaryTotal');
 
-        $lineExtensionAmount = $peppolDocument->createElement('cbc:LineExtensionAmount', 1300);
+        $lineExtensionAmount = $peppolDocument->createElement('cbc:LineExtensionAmount', $invoice->getLineExtensionAmount());
         $lineExtensionAmount->setAttribute('currencyID', $invoice->getCurrency());
         $legalMonetaryTotal->appendChild($lineExtensionAmount);
 
-        $taxExclusiveAmount = $peppolDocument->createElement('cbc:TaxExclusiveAmount', 1325);
+        $taxExclusiveAmount = $peppolDocument->createElement('cbc:TaxExclusiveAmount', $invoice->getTaxExclusiveAmount());
         $taxExclusiveAmount->setAttribute('currencyID', $invoice->getCurrency());
         $legalMonetaryTotal->appendChild($taxExclusiveAmount);
 
-        $taxInclusiveAmount = $peppolDocument->createElement('cbc:TaxInclusiveAmount', 1656.25);
+        $taxInclusiveAmount = $peppolDocument->createElement('cbc:TaxInclusiveAmount', $invoice->getTaxInclusiveAmount());
         $taxInclusiveAmount->setAttribute('currencyID', $invoice->getCurrency());
         $legalMonetaryTotal->appendChild($taxInclusiveAmount);
 
-        $chargeTotalAmount = $peppolDocument->createElement('cbc:ChargeTotalAmount', 25);
+        $chargeTotalAmount = $peppolDocument->createElement('cbc:ChargeTotalAmount', $invoice->getChargeTotalAmount());
         $chargeTotalAmount->setAttribute('currencyID', $invoice->getCurrency());
         $legalMonetaryTotal->appendChild($chargeTotalAmount);
 
-        $payableAmount = $peppolDocument->createElement('cbc:PayableAmount', 1656.25);
+        $payableAmount = $peppolDocument->createElement('cbc:PayableAmount', $invoice->getInvoicePayableAmount());
         $payableAmount->setAttribute('currencyID', $invoice->getCurrency());
         $legalMonetaryTotal->appendChild($payableAmount);
 
@@ -217,17 +217,17 @@ class PeppolGenerator
     {
         $taxTotal = $peppolDocument->createElement('cac:TaxTotal');
 
-        $taxAmount = $peppolDocument->createElement('cbc:TaxAmount', 331.25);
+        $taxAmount = $peppolDocument->createElement('cbc:TaxAmount', $invoice->getTaxAmount());
         $taxAmount->setAttribute('currencyID', $invoice->getCurrency());
         $taxTotal->appendChild($taxAmount);
         foreach ($invoice->getTaxSubTotals() as $taxSubTotalModel) {
             $taxSubTotal = $peppolDocument->createElement('cac:TaxSubtotal');
 
-            $taxableAmount = $peppolDocument->createElement('cbc:TaxableAmount', 1325);
+            $taxableAmount = $peppolDocument->createElement('cbc:TaxableAmount', $taxSubTotalModel->getTaxableAmount());
             $taxableAmount->setAttribute('currencyID', $invoice->getCurrency());
             $taxSubTotal->appendChild($taxableAmount);
 
-            $taxAmount2 = $peppolDocument->createElement('cbc:TaxAmount', 331.25);
+            $taxAmount2 = $peppolDocument->createElement('cbc:TaxAmount', $taxSubTotalModel->getTaxAmount());
             $taxAmount2->setAttribute('currencyID', $invoice->getCurrency());
             $taxSubTotal->appendChild($taxAmount2);
 

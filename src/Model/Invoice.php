@@ -75,6 +75,16 @@ class Invoice
     private $invoiceLines = [];
 
     /**
+     * @var float
+     */
+    private $chargeTotalAmount = 0;
+
+    /**
+     * @var float
+     */
+    private $chargeVatTotalAmount = 0;
+
+    /**
      * @return string|null
      */
     public function getCustomizationId(): ?string
@@ -296,5 +306,94 @@ class Invoice
     public function addInvoiceLine(InvoiceLine $invoiceLine): void
     {
         $this->invoiceLines[] = $invoiceLine;
+    }
+
+    /**
+     * @return float
+     */
+    public function getChargeTotalAmount(): float
+    {
+        return $this->chargeTotalAmount;
+    }
+
+    /**
+     * @param float $chargeTotalAmount
+     */
+    public function setChargeTotalAmount(float $chargeTotalAmount): void
+    {
+        $this->chargeTotalAmount = $chargeTotalAmount;
+    }
+
+    /**
+     * @return float
+     */
+    public function getChargeVatTotalAmount(): float
+    {
+        return $this->chargeVatTotalAmount;
+    }
+
+    /**
+     * @param float $chargeVatTotalAmount
+     */
+    public function setChargeVatTotalAmount(float $chargeVatTotalAmount): void
+    {
+        $this->chargeVatTotalAmount = $chargeVatTotalAmount;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLineExtensionAmount(): float
+    {
+        $total = 0;
+        foreach ($this->getInvoiceLines() as $invoiceLine) {
+            $total = $total + $invoiceLine->getExtensionAmount();
+        }
+
+        return $total;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxExclusiveAmount(): float
+    {
+        return $this->getLineExtensionAmount() + $this->getChargeTotalAmount();
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxInclusiveAmount(): float
+    {
+        $total = 0;
+        foreach ($this->getInvoiceLines() as $invoiceLine) {
+            $total = $total + $invoiceLine->getTaxExtensionAmount();
+        }
+
+        $total = $total + ($this->getChargeTotalAmount() + $this->getChargeVatTotalAmount());
+
+        return $total;
+    }
+
+    /**
+     * @return float
+     */
+    public function getInvoicePayableAmount(): float
+    {
+        return $this->getTaxInclusiveAmount();
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxAmount(): float
+    {
+        $total = 0;
+        foreach ($this->getTaxSubTotals() as $taxSubTotal) {
+            $total = $total + $taxSubTotal->getTaxAmount();
+        }
+
+        return $total;
     }
 }

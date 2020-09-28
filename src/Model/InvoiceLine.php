@@ -109,6 +109,14 @@ class InvoiceLine
     }
 
     /**
+     * @return float
+     */
+    public function getTaxExtensionAmount(): float
+    {
+        return $this->getExtensionAmount() * (100 + $this->getItem()->getTaxCategory()->getPercent()) / 100;
+    }
+
+    /**
      * @return string|null
      */
     public function getAccountingCost(): ?string

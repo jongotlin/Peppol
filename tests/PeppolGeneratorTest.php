@@ -19,7 +19,7 @@ final class PeppolGeneratorTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function shouldReturnInvoicePeppol()
+    public function it_generates_a_peppol_xml_document()
     {
         $invoice = new Invoice();
         $invoice->setCustomizationId('urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0');
@@ -31,6 +31,8 @@ final class PeppolGeneratorTest extends \PHPUnit\Framework\TestCase
         $invoice->setCurrency('EUR');
         $invoice->setAccountingCost('4025:123:4343');
         $invoice->setBuyerReference('0150abc');
+        $invoice->setChargeTotalAmount(25);
+        $invoice->setChargeVatTotalAmount(25 * .25);
 
         $accountingSupplierParty = new Party();
         $accountingSupplierParty->setEndpointSchemeId('0088');
