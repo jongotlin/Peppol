@@ -1,0 +1,22 @@
+{
+  "name": "jongotlin/peppol",
+  "license": "MIT",
+  "type": "package",
+  "authors": [
+    {
+      "name": "Jon Gotlin",
+      "email": "jon@jon.se"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "JGI\\Peppol\\": "src"
+    }
+  },
+  "require": {
+    "php": "^7.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.0"
+  }
+}
