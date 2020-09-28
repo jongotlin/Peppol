@@ -50,6 +50,31 @@ class Invoice
     private $buyerReference;
 
     /**
+     * @var Party|null
+     */
+    private $accountingSupplierParty;
+
+    /**
+     * @var Party|null
+     */
+    private $accountingCustomerParty;
+
+    /**
+     * @var AllowanceCharge|null
+     */
+    private $allowanceCharge;
+
+    /**
+     * @var TaxSubTotal[]
+     */
+    private $taxSubTotals = [];
+
+    /**
+     * @var InvoiceLine[]
+     */
+    private $invoiceLines = [];
+
+    /**
      * @return string|null
      */
     public function getCustomizationId(): ?string
@@ -191,5 +216,85 @@ class Invoice
     public function setBuyerReference(?string $buyerReference): void
     {
         $this->buyerReference = $buyerReference;
+    }
+
+    /**
+     * @return Party|null
+     */
+    public function getAccountingSupplierParty(): ?Party
+    {
+        return $this->accountingSupplierParty;
+    }
+
+    /**
+     * @param Party|null $accountingSupplierParty
+     */
+    public function setAccountingSupplierParty(?Party $accountingSupplierParty): void
+    {
+        $this->accountingSupplierParty = $accountingSupplierParty;
+    }
+
+    /**
+     * @return Party|null
+     */
+    public function getAccountingCustomerParty(): ?Party
+    {
+        return $this->accountingCustomerParty;
+    }
+
+    /**
+     * @param Party|null $accountingCustomerParty
+     */
+    public function setAccountingCustomerParty(?Party $accountingCustomerParty): void
+    {
+        $this->accountingCustomerParty = $accountingCustomerParty;
+    }
+
+    /**
+     * @return AllowanceCharge|null
+     */
+    public function getAllowanceCharge(): ?AllowanceCharge
+    {
+        return $this->allowanceCharge;
+    }
+
+    /**
+     * @param AllowanceCharge|null $allowanceCharge
+     */
+    public function setAllowanceCharge(?AllowanceCharge $allowanceCharge): void
+    {
+        $this->allowanceCharge = $allowanceCharge;
+    }
+
+    /**
+     * @return TaxSubTotal[]
+     */
+    public function getTaxSubTotals(): array
+    {
+        return $this->taxSubTotals;
+    }
+
+    /**
+     * @param TaxSubTotal $taxSubTotal
+     */
+    public function addTaxSubTotals(TaxSubtotal $taxSubTotal): void
+    {
+        $this->taxSubTotals[] = $taxSubTotal;
+    }
+
+    /**
+     * @return InvoiceLine[]
+     */
+    public function getInvoiceLines(): array
+    {
+        return $this->invoiceLines;
+    }
+
+    /**
+     * @param InvoiceLine $invoiceLine
+     */
+    public function addInvoiceLine(InvoiceLine $invoiceLine): void
+    {
+        $this->invoiceLines[] = $invoiceLine;
     }
 }
