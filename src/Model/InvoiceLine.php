@@ -15,7 +15,7 @@ class InvoiceLine
     private $quantityCode;
 
     /**
-     * @var int
+     * @var float
      */
     private $quantity = 0;
 
@@ -77,17 +77,17 @@ class InvoiceLine
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getQuantity(): int
+    public function getQuantity(): float
     {
         return $this->quantity;
     }
 
     /**
-     * @param int $quantity
+     * @param float $quantity
      */
-    public function setQuantity(int $quantity): void
+    public function setQuantity(float $quantity): void
     {
         $this->quantity = $quantity;
     }

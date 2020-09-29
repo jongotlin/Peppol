@@ -25,14 +25,20 @@ class PeppolGenerator
         $root->setAttributeNodeNS(new \DOMAttr('xmlns:cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2'));
         $root->setAttributeNodeNS(new \DOMAttr('xmlns', 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2'));
         $root->appendChild($peppolDocument->createElement('cbc:CustomizationID', $invoice->getCustomizationId()));
-        $root->appendChild($peppolDocument->createElement('cbc:ProfileID', $invoice->getProfileId()));
+        if ($invoice->getProfileId()) {
+            $root->appendChild($peppolDocument->createElement('cbc:ProfileID', $invoice->getProfileId()));
+        }
         $root->appendChild($peppolDocument->createElement('cbc:ID', $invoice->getId()));
         $root->appendChild($peppolDocument->createElement('cbc:IssueDate', $invoice->getIssueDate()->format('Y-m-d')));
         $root->appendChild($peppolDocument->createElement('cbc:DueDate', $invoice->getDueDate()->format('Y-m-d')));
         $root->appendChild($peppolDocument->createElement('cbc:InvoiceTypeCode', $invoice->getInvoiceTypeCode()));
         $root->appendChild($peppolDocument->createElement('cbc:DocumentCurrencyCode', $invoice->getCurrency()));
-        $root->appendChild($peppolDocument->createElement('cbc:AccountingCost', $invoice->getAccountingCost()));
-        $root->appendChild($peppolDocument->createElement('cbc:BuyerReference', $invoice->getBuyerReference()));
+        if ($invoice->getAccountingCost()) {
+            $root->appendChild($peppolDocument->createElement('cbc:AccountingCost', $invoice->getAccountingCost()));
+        }
+        if ($invoice->getBuyerReference()) {
+            $root->appendChild($peppolDocument->createElement('cbc:BuyerReference', $invoice->getBuyerReference()));
+        }
 
         $accountingSupplierParty = $peppolDocument->createElement('cac:AccountingSupplierParty');
         $accountingSupplierParty->appendChild(
@@ -46,9 +52,11 @@ class PeppolGenerator
         );
         $root->appendChild($accountingCustomerParty);
 
-        $root->appendChild(
-            $this->createAllowanceCharge($peppolDocument, $invoice->getAllowanceCharge(), $invoice)
-        );
+        if ($invoice->getAllowanceCharge()) {
+            $root->appendChild(
+                $this->createAllowanceCharge($peppolDocument, $invoice->getAllowanceCharge(), $invoice)
+            );
+        }
 
         $root->appendChild(
             $this->createTaxTotal($peppolDocument, $invoice)
@@ -103,16 +111,23 @@ class PeppolGenerator
             $invoiceLine->appendChild($peppolDocument->createElement('cbc:AccountingCost', $invoiceLineModel->getAccountingCost()));
         }
 
-        $invoiceLine
-            ->appendChild($peppolDocument->createElement('cac:OrderLineReference'))
-            ->appendChild($peppolDocument->createElement('cbc:LineID', $invoiceLineModel->getOrderLineReferenceLineId()));
+        if ($invoiceLineModel->getOrderLineReferenceLineId()) {
+            $invoiceLine
+                ->appendChild($peppolDocument->createElement('cac:OrderLineReference'))
+                ->appendChild($peppolDocument->createElement('cbc:LineID', $invoiceLineModel->getOrderLineReferenceLineId()));
+        }
 
 
         $item = $peppolDocument->createElement('cac:Item');
-        $item->appendChild($peppolDocument->createElement('cbc:Description', $invoiceLineModel->getItem()->getDescription()));
-        $item->appendChild($peppolDocument->createElement('cbc:Name', $invoiceLineModel->getItem()->getName()));
-
-        $item->appendChild($this->createTaxCategory('cac:ClassifiedTaxCategory', $peppolDocument, $invoiceLineModel->getItem()->getTaxCategory()));
+        if ($invoiceLineModel->getItem()->getDescription()) {
+            $item->appendChild($peppolDocument->createElement('cbc:Description', $invoiceLineModel->getItem()->getDescription()));
+        }
+        if ($invoiceLineModel->getItem()->getName()) {
+            $item->appendChild($peppolDocument->createElement('cbc:Name', $invoiceLineModel->getItem()->getName()));
+        }
+        if ($invoiceLineModel->getItem()->getTaxCategory()) {
+            $item->appendChild($this->createTaxCategory('cac:ClassifiedTaxCategory', $peppolDocument, $invoiceLineModel->getItem()->getTaxCategory()));
+        }
 
         $invoiceLine->appendChild($item);
 
@@ -153,14 +168,23 @@ class PeppolGenerator
 
         $addressModel = $partyModel->getPostalAddress();
         $postalAddress = $peppolDocument->createElement('cac:PostalAddress');
-        $postalAddress->appendChild($peppolDocument->createElement('cbc:StreetName', $addressModel->getStreetName()));
-        $postalAddress->appendChild($peppolDocument->createElement('cbc:AdditionalStreetName', $addressModel->getAdditionalStreetName()));
-        $postalAddress->appendChild($peppolDocument->createElement('cbc:CityName', $addressModel->getCityName()));
-        $postalAddress->appendChild($peppolDocument->createElement('cbc:PostalZone', $addressModel->getPostalZone()));
-        $postalAddress
-            ->appendChild($peppolDocument->createElement('cac:Country'))
-            ->appendChild($peppolDocument->createElement('cbc:IdentificationCode', $addressModel->getCountryCode()));
-
+        if ($addressModel->getStreetName()) {
+            $postalAddress->appendChild($peppolDocument->createElement('cbc:StreetName', $addressModel->getStreetName()));
+        }
+        if ($addressModel->getAdditionalStreetName()) {
+            $postalAddress->appendChild($peppolDocument->createElement('cbc:AdditionalStreetName', $addressModel->getAdditionalStreetName()));
+        }
+        if ($addressModel->getCityName()) {
+            $postalAddress->appendChild($peppolDocument->createElement('cbc:CityName', $addressModel->getCityName()));
+        }
+        if ($addressModel->getPostalZone()) {
+            $postalAddress->appendChild($peppolDocument->createElement('cbc:PostalZone', $addressModel->getPostalZone()));
+        }
+        if ($addressModel->getCountryCode()) {
+            $postalAddress
+                ->appendChild($peppolDocument->createElement('cac:Country'))
+                ->appendChild($peppolDocument->createElement('cbc:IdentificationCode', $addressModel->getCountryCode()));
+        }
         $party->appendChild($postalAddress);
 
         $partyTaxScheme = $peppolDocument->createElement('cac:PartyTaxScheme');
