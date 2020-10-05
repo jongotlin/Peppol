@@ -230,6 +230,12 @@ class PeppolGenerator
         $chargeTotalAmount->setAttribute('currencyID', $invoice->getCurrency());
         $legalMonetaryTotal->appendChild($chargeTotalAmount);
 
+        if ($invoice->getPayableRoundingAmount() != 0) {
+            $roundingAmount = $peppolDocument->createElement('cbc:PayableRoundingAmount', $invoice->getPayableRoundingAmount());
+            $roundingAmount->setAttribute('currencyID', $invoice->getCurrency());
+            $legalMonetaryTotal->appendChild($roundingAmount);
+        }
+
         $payableAmount = $peppolDocument->createElement('cbc:PayableAmount', $invoice->getInvoicePayableAmount());
         $payableAmount->setAttribute('currencyID', $invoice->getCurrency());
         $legalMonetaryTotal->appendChild($payableAmount);

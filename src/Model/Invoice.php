@@ -110,6 +110,11 @@ class Invoice
     private $taxAmount = 0;
 
     /**
+     * @var float
+     */
+    private $payableRoundingAmount = 0;
+
+    /**
      * @return string|null
      */
     public function getCustomizationId(): ?string
@@ -445,5 +450,19 @@ class Invoice
         $this->taxAmount = $taxAmount;
     }
 
+    /**
+     * @return float
+     */
+    public function getPayableRoundingAmount(): float
+    {
+        return $this->payableRoundingAmount;
+    }
 
+    /**
+     * @param float $payableRoundingAmount
+     */
+    public function setPayableRoundingAmount(float $payableRoundingAmount): void
+    {
+        $this->payableRoundingAmount = $payableRoundingAmount;
+    }
 }
