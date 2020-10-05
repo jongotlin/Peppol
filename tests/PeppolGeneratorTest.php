@@ -33,6 +33,11 @@ final class PeppolGeneratorTest extends \PHPUnit\Framework\TestCase
         $invoice->setBuyerReference('0150abc');
         $invoice->setChargeTotalAmount(25);
         $invoice->setChargeVatTotalAmount(25 * .25);
+        $invoice->setTaxAmount(331.25);
+        $invoice->setLineExtensionAmount(1300);
+        $invoice->setTaxExclusiveAmount(1325);
+        $invoice->setTaxInclusiveAmount(1656.25);
+        $invoice->setInvoicePayableAmount(1656.25);
 
         $accountingSupplierParty = new Party();
         $accountingSupplierParty->setEndpointSchemeId('0088');

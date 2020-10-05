@@ -85,6 +85,31 @@ class Invoice
     private $chargeVatTotalAmount = 0;
 
     /**
+     * @var float
+     */
+    private $lineExtensionAmount = 0;
+
+    /**
+     * @var float
+     */
+    private $taxExclusiveAmount = 0;
+
+    /**
+     * @var float
+     */
+    private $taxInclusiveAmount = 0;
+
+    /**
+     * @var float
+     */
+    private $invoicePayableAmount = 0;
+
+    /**
+     * @var float
+     */
+    private $taxAmount = 0;
+
+    /**
      * @return string|null
      */
     public function getCustomizationId(): ?string
@@ -345,12 +370,15 @@ class Invoice
      */
     public function getLineExtensionAmount(): float
     {
-        $total = 0;
-        foreach ($this->getInvoiceLines() as $invoiceLine) {
-            $total = $total + $invoiceLine->getExtensionAmount();
-        }
+        return $this->lineExtensionAmount;
+    }
 
-        return $total;
+    /**
+     * @param float $lineExtensionAmount
+     */
+    public function setLineExtensionAmount(float $lineExtensionAmount): void
+    {
+        $this->lineExtensionAmount = $lineExtensionAmount;
     }
 
     /**
@@ -358,7 +386,15 @@ class Invoice
      */
     public function getTaxExclusiveAmount(): float
     {
-        return $this->getLineExtensionAmount() + $this->getChargeTotalAmount();
+        return $this->taxExclusiveAmount;
+    }
+
+    /**
+     * @param float $taxExclusiveAmount
+     */
+    public function setTaxExclusiveAmount(float $taxExclusiveAmount): void
+    {
+        $this->taxExclusiveAmount = $taxExclusiveAmount;
     }
 
     /**
@@ -366,14 +402,15 @@ class Invoice
      */
     public function getTaxInclusiveAmount(): float
     {
-        $total = 0;
-        foreach ($this->getInvoiceLines() as $invoiceLine) {
-            $total = $total + $invoiceLine->getTaxExtensionAmount();
-        }
+        return $this->taxInclusiveAmount;
+    }
 
-        $total = $total + ($this->getChargeTotalAmount() + $this->getChargeVatTotalAmount());
-
-        return $total;
+    /**
+     * @param float $taxInclusiveAmount
+     */
+    public function setTaxInclusiveAmount(float $taxInclusiveAmount): void
+    {
+        $this->taxInclusiveAmount = $taxInclusiveAmount;
     }
 
     /**
@@ -381,7 +418,15 @@ class Invoice
      */
     public function getInvoicePayableAmount(): float
     {
-        return $this->getTaxInclusiveAmount();
+        return $this->invoicePayableAmount;
+    }
+
+    /**
+     * @param float $invoicePayableAmount
+     */
+    public function setInvoicePayableAmount(float $invoicePayableAmount): void
+    {
+        $this->invoicePayableAmount = $invoicePayableAmount;
     }
 
     /**
@@ -389,11 +434,16 @@ class Invoice
      */
     public function getTaxAmount(): float
     {
-        $total = 0;
-        foreach ($this->getTaxSubTotals() as $taxSubTotal) {
-            $total = $total + $taxSubTotal->getTaxAmount();
-        }
-
-        return $total;
+        return $this->taxAmount;
     }
+
+    /**
+     * @param float $taxAmount
+     */
+    public function setTaxAmount(float $taxAmount): void
+    {
+        $this->taxAmount = $taxAmount;
+    }
+
+
 }
