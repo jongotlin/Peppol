@@ -4,6 +4,9 @@ namespace JGI\Peppol\Model;
 
 class Party
 {
+    const PARTY_ELECTRONIC_ADDRESS_SCHEME_EAN_LOCATION_CODE = '0088';
+    const PARTY_ELECTRONIC_ADDRESS_SCHEME_SWEDISH_VAT_NUMBER = '9955';
+    
     /**
      * @var string|null
      */

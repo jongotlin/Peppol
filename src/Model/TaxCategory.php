@@ -4,6 +4,10 @@ namespace JGI\Peppol\Model;
 
 class TaxCategory
 {
+    const TAX_SCHEME_VAT = 'VAT';
+
+    const TAX_CATEGORY_STANDARD_RATE = 'S';
+    
     /**
      * @var string|null
      */

@@ -4,6 +4,8 @@ namespace JGI\Peppol\Model;
 
 class Invoice
 {
+    const INVOICE_TYPE_COMMERCIAL_INVOICE = '380';
+    
     /**
      * @var string|null
      */
