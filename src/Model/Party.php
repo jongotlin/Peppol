@@ -6,7 +6,8 @@ class Party
 {
     const PARTY_ELECTRONIC_ADDRESS_SCHEME_EAN_LOCATION_CODE = '0088';
     const PARTY_ELECTRONIC_ADDRESS_SCHEME_SWEDISH_VAT_NUMBER = '9955';
-    
+    const PARTY_ELECTRONIC_ADDRESS_SCHEME_SWEDISH_ORG_NUMBER = '0007';
+
     /**
      * @var string|null
      */
