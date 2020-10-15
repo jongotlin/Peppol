@@ -4,7 +4,7 @@ namespace JGI\Peppol\Model;
 
 class InvoiceLine
 {
-    const QUANTITY_CODE_EACH = 'AE';
+    const QUANTITY_CODE_EACH = 'EA';
     const QUANTITY_CODE_LABOUR_HOUR = 'LH';
 
     /**
