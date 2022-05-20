@@ -120,7 +120,9 @@ class PeppolGenerator
 
         $item = $peppolDocument->createElement('cac:Item');
         if ($invoiceLineModel->getItem()->getDescription()) {
-            $item->appendChild($peppolDocument->createElement('cbc:Description', $invoiceLineModel->getItem()->getDescription()));
+            $description = $peppolDocument->createElement('cbc:Description');
+            $description->appendChild($peppolDocument->createTextNode($invoiceLineModel->getItem()->getDescription()));
+            $item->appendChild($description);
         }
         if ($invoiceLineModel->getItem()->getName()) {
             $item->appendChild($peppolDocument->createElement('cbc:Name', $invoiceLineModel->getItem()->getName()));
@@ -162,14 +164,16 @@ class PeppolGenerator
         $endpointId->setAttribute('schemeID', $partyModel->getEndpointSchemeId());
         $party->appendChild($endpointId);
 
-        $party
-            ->appendChild($peppolDocument->createElement('cac:PartyName'))
-            ->appendChild($peppolDocument->createElement('cbc:Name', $partyModel->getName()));
+        $name = $peppolDocument->createElement('cbc:Name');
+        $name->appendChild($peppolDocument->createTextNode($partyModel->getName()));
+        $party->appendChild($peppolDocument->createElement('cac:PartyName'))->appendChild($name);
 
         $addressModel = $partyModel->getPostalAddress();
         $postalAddress = $peppolDocument->createElement('cac:PostalAddress');
         if ($addressModel->getStreetName()) {
-            $postalAddress->appendChild($peppolDocument->createElement('cbc:StreetName', $addressModel->getStreetName()));
+            $streetName = $peppolDocument->createElement('cbc:StreetName');
+            $streetName->appendChild($peppolDocument->createTextNode($addressModel->getStreetName()));
+            $postalAddress->appendChild($streetName);
         }
         if ($addressModel->getAdditionalStreetName()) {
             $postalAddress->appendChild($peppolDocument->createElement('cbc:AdditionalStreetName', $addressModel->getAdditionalStreetName()));
@@ -196,9 +200,10 @@ class PeppolGenerator
             $party->appendChild($partyTaxScheme);
         }
 
-        $party
-            ->appendChild($peppolDocument->createElement('cac:PartyLegalEntity'))
-            ->appendChild($peppolDocument->createElement('cbc:RegistrationName', $partyModel->getRegistrationName()));
+
+        $name = $peppolDocument->createElement('cbc:RegistrationName');
+        $name->appendChild($peppolDocument->createTextNode($partyModel->getRegistrationName()));
+        $party->appendChild($peppolDocument->createElement('cac:PartyLegalEntity'))->appendChild($name);
 
         if ($partyModel->getContact()) {
             $contact = $peppolDocument->createElement('cac:Contact');
