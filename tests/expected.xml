@@ -15,10 +15,10 @@
         <cac:Party>
             <cbc:EndpointID schemeID="0088">9482348239847239874</cbc:EndpointID>
             <cac:PartyName>
-                <cbc:Name>SupplierTradingName Ltd.</cbc:Name>
+                <cbc:Name>SupplierTradingName AB &amp; Ltd.</cbc:Name>
             </cac:PartyName>
             <cac:PostalAddress>
-                <cbc:StreetName>Main street 1</cbc:StreetName>
+                <cbc:StreetName>Main street 1 &amp; co</cbc:StreetName>
                 <cbc:AdditionalStreetName>Postbox 123</cbc:AdditionalStreetName>
                 <cbc:CityName>London</cbc:CityName>
                 <cbc:PostalZone>GB 123 EW</cbc:PostalZone>
@@ -33,7 +33,7 @@
                 </cac:TaxScheme>
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>SupplierOfficialName Ltd</cbc:RegistrationName>
+                <cbc:RegistrationName>SupplierOfficialName AB &amp; Ltd</cbc:RegistrationName>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -41,10 +41,10 @@
         <cac:Party>
             <cbc:EndpointID schemeID="0002">FR23342</cbc:EndpointID>
             <cac:PartyName>
-                <cbc:Name>BuyerTradingName AS</cbc:Name>
+                <cbc:Name>BuyerTradingName AB &amp; AS</cbc:Name>
             </cac:PartyName>
             <cac:PostalAddress>
-                <cbc:StreetName>Hovedgatan 32</cbc:StreetName>
+                <cbc:StreetName>Hovedgatan 32 &amp; co</cbc:StreetName>
                 <cbc:AdditionalStreetName>Po box 878</cbc:AdditionalStreetName>
                 <cbc:CityName>Stockholm</cbc:CityName>
                 <cbc:PostalZone>456 34</cbc:PostalZone>
@@ -59,7 +59,7 @@
                 </cac:TaxScheme>
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>Buyer Official Name</cbc:RegistrationName>
+                <cbc:RegistrationName>Buyer Official Name &amp; co</cbc:RegistrationName>
             </cac:PartyLegalEntity>
             <cac:Contact>
                 <cbc:Name>Lisa Johnson</cbc:Name>
@@ -111,7 +111,7 @@
             <cbc:LineID>123</cbc:LineID>
         </cac:OrderLineReference>
         <cac:Item>
-            <cbc:Description>Description of item</cbc:Description>
+            <cbc:Description>Description of item &amp; co</cbc:Description>
             <cbc:Name>item name</cbc:Name>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>S</cbc:ID>
