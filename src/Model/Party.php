@@ -56,7 +56,7 @@ class Party
      */
     public function setEndpointId(?string $endpointId): void
     {
-        $this->endpointId = $endpointId;
+        $this->endpointId = str_replace('-', '', (string) $endpointId);
     }
 
     /**

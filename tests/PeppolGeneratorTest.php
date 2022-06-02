@@ -60,7 +60,7 @@ final class PeppolGeneratorTest extends \PHPUnit\Framework\TestCase
 
         $accountingCustomerParty = new Party();
         $accountingCustomerParty->setEndpointSchemeId('0002');
-        $accountingCustomerParty->setEndpointId('FR23342');
+        $accountingCustomerParty->setEndpointId('FR-23342');
         $accountingCustomerParty->setName('BuyerTradingName AB & AS');
         $postalAddress = new PostalAddress();
         $postalAddress->setStreetName('Hovedgatan 32 & co');
