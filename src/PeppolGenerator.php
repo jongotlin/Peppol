@@ -191,13 +191,19 @@ class PeppolGenerator
         }
         $party->appendChild($postalAddress);
 
-        if ($partyModel->getPartyTaxScheme()) {
-            $partyTaxScheme = $peppolDocument->createElement('cac:PartyTaxScheme');
-            $partyTaxScheme->appendChild($peppolDocument->createElement('cbc:CompanyID', $partyModel->getPartyTaxScheme()->getCompanyId()));
-            $partyTaxScheme
+        foreach ($partyModel->getPartyTaxSchemes() as $partyTaxScheme) {
+            $partyTaxSchemeElement = $peppolDocument->createElement('cac:PartyTaxScheme');
+
+            $companyId = $peppolDocument->createElement('cbc:CompanyID', $partyTaxScheme->getCompanyId());
+            if ($partyTaxScheme->getCompanyId()) {
+                $companyId->setAttribute('schemeID', $partyTaxScheme->getCompanySchemeId());
+            }
+
+            $partyTaxSchemeElement->appendChild($companyId);
+            $partyTaxSchemeElement
                 ->appendChild($peppolDocument->createElement('cac:TaxScheme'))
-                ->appendChild($peppolDocument->createElement('cbc:ID', $partyModel->getPartyTaxScheme()->getTaxSchemeId()));
-            $party->appendChild($partyTaxScheme);
+                ->appendChild($peppolDocument->createElement('cbc:ID', $partyTaxScheme->getTaxSchemeId()));
+            $party->appendChild($partyTaxSchemeElement);
         }
 
 

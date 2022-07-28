@@ -29,9 +29,9 @@ class Party
     private $postalAddress;
 
     /**
-     * @var PartyTaxScheme|null
+     * @var array<int, PartyTaxScheme>
      */
-    private $partyTaxScheme;
+    private $partyTaxSchemes = [];
 
     /**
      * @var string|null
@@ -108,19 +108,19 @@ class Party
     }
 
     /**
-     * @return PartyTaxScheme|null
+     * @return array<int, PartyTaxScheme>
      */
-    public function getPartyTaxScheme(): ?PartyTaxScheme
+    public function getPartyTaxSchemes(): array
     {
-        return $this->partyTaxScheme;
+        return $this->partyTaxSchemes;
     }
 
     /**
-     * @param PartyTaxScheme|null $partyTaxScheme
+     * @param PartyTaxScheme $partyTaxScheme
      */
-    public function setPartyTaxScheme(?PartyTaxScheme $partyTaxScheme): void
+    public function addPartyTaxScheme(PartyTaxScheme $partyTaxScheme): void
     {
-        $this->partyTaxScheme = $partyTaxScheme;
+        $this->partyTaxSchemes[] = $partyTaxScheme;
     }
 
     /**
