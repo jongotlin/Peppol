@@ -53,7 +53,8 @@ final class PeppolGeneratorTest extends \PHPUnit\Framework\TestCase
         $partyTaxScheme = new PartyTaxScheme();
         $partyTaxScheme->setCompanyId('GB1232434');
         $partyTaxScheme->setTaxSchemeId('VAT');
-        $accountingSupplierParty->setPartyTaxScheme($partyTaxScheme);
+        $partyTaxScheme->setCompanySchemeId('SE:VAT');
+        $accountingSupplierParty->addPartyTaxScheme($partyTaxScheme);
         $accountingSupplierParty->setRegistrationName('SupplierOfficialName AB & Ltd');
         $invoice->setAccountingSupplierParty($accountingSupplierParty);
 
@@ -69,10 +70,19 @@ final class PeppolGeneratorTest extends \PHPUnit\Framework\TestCase
         $postalAddress->setPostalZone('456 34');
         $postalAddress->setCountryCode('SE');
         $accountingCustomerParty->setPostalAddress($postalAddress);
+
+        $partyTaxScheme = new PartyTaxScheme();
+        $partyTaxScheme->setCompanyId('4598375937');
+        $partyTaxScheme->setTaxSchemeId('SWT');
+        $partyTaxScheme->setCompanySchemeId('SE:ORGNR');
+        $accountingCustomerParty->addPartyTaxScheme($partyTaxScheme);
+
         $partyTaxScheme = new PartyTaxScheme();
         $partyTaxScheme->setCompanyId('SE4598375937');
         $partyTaxScheme->setTaxSchemeId('VAT');
-        $accountingCustomerParty->setPartyTaxScheme($partyTaxScheme);
+        $partyTaxScheme->setCompanySchemeId('SE:VAT');
+        $accountingCustomerParty->addPartyTaxScheme($partyTaxScheme);
+
         $accountingCustomerParty->setRegistrationName('Buyer Official Name & co');
         $contact = new Contact();
         $contact->setName('Lisa Johnson');
