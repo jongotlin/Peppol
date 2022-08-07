@@ -60,6 +60,7 @@
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Buyer Official Name &amp; co</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="0007">5569780538</cbc:CompanyID>
             </cac:PartyLegalEntity>
             <cac:Contact>
                 <cbc:Name>Lisa Johnson</cbc:Name>

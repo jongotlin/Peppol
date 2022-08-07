@@ -201,9 +201,18 @@ class PeppolGenerator
         }
 
 
+        $partyLegalEntity = $party->appendChild($peppolDocument->createElement('cac:PartyLegalEntity'));
+
         $name = $peppolDocument->createElement('cbc:RegistrationName');
         $name->appendChild($peppolDocument->createTextNode($partyModel->getRegistrationName()));
-        $party->appendChild($peppolDocument->createElement('cac:PartyLegalEntity'))->appendChild($name);
+        $partyLegalEntity->appendChild($name);
+
+        if ($partyModel->getCompanyId()) {
+            $companyId = $peppolDocument->createElement('cbc:CompanyID');
+            $companyId->appendChild($peppolDocument->createTextNode($partyModel->getCompanyId()));
+            $companyId->setAttribute('schemeID', $partyModel->getCompanySchemeId());
+            $partyLegalEntity->appendChild($companyId);
+        }
 
         if ($partyModel->getContact()) {
             $contact = $peppolDocument->createElement('cac:Contact');
