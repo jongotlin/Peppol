@@ -44,6 +44,16 @@ class Party
     private $contact;
 
     /**
+     * @var string|null
+     */
+    private $companyId;
+
+    /**
+     * @var string|null
+     */
+    private $companySchemeId;
+
+    /**
      * @return string|null
      */
     public function getEndpointId(): ?string
@@ -153,5 +163,37 @@ class Party
     public function setContact(?Contact $contact): void
     {
         $this->contact = $contact;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCompanyId(): ?string
+    {
+        return $this->companyId;
+    }
+
+    /**
+     * @param string|null $companyId
+     */
+    public function setCompanyId(?string $companyId): void
+    {
+        $this->companyId = str_replace('-', '', (string) $companyId);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCompanySchemeId(): ?string
+    {
+        return $this->companySchemeId;
+    }
+
+    /**
+     * @param string|null $companySchemeId
+     */
+    public function setCompanySchemeId(?string $companySchemeId): void
+    {
+        $this->companySchemeId = $companySchemeId;
     }
 }
